@@ -1,0 +1,26 @@
+.create_card {
+    margin-bottom: 20px;
+}
+
+.create_card .button {
+    cursor: pointer;
+    height: 35px;
+    background: darkseagreen;
+    max-width: 150px;
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.create_card .button:hover {
+    background: tomato;
+}
+
+.create_card .button:active {
+    background: lightslategray;
+}
+
+.create_card .button p {
+    margin-top: 10px;
+}
