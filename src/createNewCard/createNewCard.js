@@ -49,7 +49,7 @@ const CreateNewCard = ({newTaskHandler}) => {
                             <FormLabel id="demo-radio-buttons-group-label">Приоритет</FormLabel>
                             <RadioGroup
                                 aria-labelledby="demo-radio-buttons-group-label"
-                                defaultValue="female"
+                                defaultValue="medium"
                                 name="radio-buttons-group"
                             >
                                 <FormControlLabel value="high" control={<Radio />} label="Высокий" />
