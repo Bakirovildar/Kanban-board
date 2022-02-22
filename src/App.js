@@ -10,18 +10,19 @@ function App() {
     const boards = [
         {
             id: 1,
-            title: 'todo',
-            items: [{id: uuid(), title: 'Пойти в магазин', priority: 'high'}]
+            title: 'К выполнению',
+
+            items: []
         },
         {
             id: 2,
-            title: 'progress',
-            items: [{id: uuid(), title: 'Пойти', priority: 'medium'}]
+            title: 'В работе',
+            items: []
         },
         {
             id: 3,
-            title: 'done',
-            items: [{id: uuid(), title: ' магазин3', priority: 'low'}]
+            title: 'Готово',
+            items: []
         },
     ]
 
@@ -34,8 +35,8 @@ function App() {
             <div className='App'>
                 <Router>
                     <Routes>
-                        <Route path='/'  element={<Board boards={boards}/>} />
-                        <Route path='/add'  element={<CreateNewCard newTaskHandler={newTaskHandler}/>} />
+                        <Route path='Kanban-board'  element={<Board boards={boards}/>} />
+                        <Route path='Kanban-board/add'  element={<CreateNewCard newTaskHandler={newTaskHandler}/>} />
                     </Routes>
                 </Router>
             </div>

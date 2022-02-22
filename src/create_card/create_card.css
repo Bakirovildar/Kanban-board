@@ -4,11 +4,11 @@
 
 .create_card .button {
     cursor: pointer;
-    height: 35px;
+    height: 40px;
+    border-radius: 25px;
     background: darkseagreen;
-    max-width: 150px;
+    width: 180px;
     display: flex;
-
     justify-content: center;
     align-items: center;
 }
@@ -19,8 +19,4 @@
 
 .create_card .button:active {
     background: lightslategray;
-}
-
-.create_card .button p {
-    margin-top: 10px;
 }

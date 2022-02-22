@@ -67,47 +67,50 @@ const Board = ({boards: initialBoards}) => {
             <Container>
                 <Row> <CreateCard/> </Row>
                 <Row>
-                    {boards.map(board => (
-                        <Col
-                            key={board.id}
-                            className='col-card'
-                            onDragOver={event => dragOverHandler(event)}
-                            onDrop={event => dropCardHandler(event, board)}
+                    {boards.map(board => {
+                        return (
+                            <Col
+                                key={board.id}
+                                className='col-card'
+                                onDragOver={event => dragOverHandler(event)}
+                                onDrop={event => dropCardHandler(event, board)}
 
-                        >
-                            {board.items.map(item => {
-                                let cls = 'task'
-                                if (item.priority === 'high') {
-                                    cls += ' high'
-                                }
-                                if (item.priority === 'medium') {
-                                    cls += ' medium'
-                                }
-                                if (item.priority === 'low'){
-                                    cls += ' low'
-                                }
-
-                                return (
-                                <div
-                                    key={item.id}
-                                    onDragStart={event => dragStartHandler(event, board, item)}
-                                    onDragOver={event => dragOverHandler(event)}
-                                    onDragLeave={event => dragLeaveHandler(event)}
-                                    onDragEnd={event => dragEndHandler(event)}
-                                    onDrop={event => dropHandler(event, board, item)}
-                                    draggable={"true"}
-                                    className='item'
-                                >
-                                    <div className={cls}>
-                                        <div className='task-in'>
-                                            <h3>{item.title}</h3>
-                                            <span>{item.description}</span>
-                                        </div>
-                                    </div>
-                                </div>
+                            >
+                                <span className='title'>{board.title}</span>
+                                {board.items.map(item => {
+                                        let cls = 'task'
+                                        if (item.priority === 'high') {
+                                            cls += ' high'
+                                        }
+                                        if (item.priority === 'medium') {
+                                            cls += ' medium'
+                                        }
+                                        if (item.priority === 'low') {
+                                            cls += ' low'
+                                        }
+                                        return (
+                                            <div
+                                                key={item.id}
+                                                onDragStart={event => dragStartHandler(event, board, item)}
+                                                onDragOver={event => dragOverHandler(event)}
+                                                onDragLeave={event => dragLeaveHandler(event)}
+                                                onDragEnd={event => dragEndHandler(event)}
+                                                onDrop={event => dropHandler(event, board, item)}
+                                                draggable={"true"}
+                                                className='item'
+                                            >
+                                                <div className={cls}>
+                                                    <div className='task-in'>
+                                                        <h3>{item.title}</h3>
+                                                        <span>{item.description}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
                                 )}
-                            )}
-                        </Col>))}
+                            </Col>)
+                    })}
                 </Row>
             </Container>
         </div>

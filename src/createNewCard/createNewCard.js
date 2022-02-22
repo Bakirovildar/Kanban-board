@@ -65,13 +65,13 @@ const CreateNewCard = ({newTaskHandler}) => {
                             onClick={() => newTaskHandler(state.title, state.description, state.priority)}>
                             <NavLink
                                 style={{color: 'black', textDecoration: "none"}}
-                                to={'/'}>Отправить
+                                to={'/Kanban-board'}>Отправить
                             </NavLink>
                         </Button>
                         <Button style={{marginTop: '10px'}}
                             variant="outlined"
                         ><NavLink
-                            to={'/'}
+                            to={'/Kanban-board'}
                             style={{color: 'black', textDecoration: "none"}}>Отмена
                         </NavLink>
                         </Button>
