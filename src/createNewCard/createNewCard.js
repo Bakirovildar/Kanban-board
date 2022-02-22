@@ -10,7 +10,7 @@ const CreateNewCard = ({newTaskHandler}) => {
     const [state, setState] = useState({
         title: '',
         description: '',
-        priority: ''
+        priority: 'medium'
     })
 
     const changeTitleHandler = (event) => {
