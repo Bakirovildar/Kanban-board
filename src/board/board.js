@@ -1,6 +1,8 @@
 import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css'
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import './board.css'
 import CreateCard from "../create_card/create_card";
 
@@ -62,6 +64,14 @@ const Board = ({boards: initialBoards}) => {
         }))
     }
 
+    const deleteTaskHandler = (board, item) => {
+        const newBoards = [...boards]
+        const indexBoard = boards.indexOf(board)
+        const indexItem = boards[indexBoard].items.indexOf(item)
+        newBoards[indexBoard].items.splice(indexItem, 1)
+        setBoards(newBoards)
+    }
+
     return (
         <div className='board'>
             <Container>
@@ -101,6 +111,9 @@ const Board = ({boards: initialBoards}) => {
                                             >
                                                 <div className={cls}>
                                                     <div className='task-in'>
+                                                        <EditIcon className='edit-icon'/>
+                                                        <DeleteIcon className='delete-icon'
+                                                                    onClick={() => deleteTaskHandler(board, item)}/>
                                                         <h3>{item.title}</h3>
                                                         <span>{item.description}</span>
                                                     </div>

@@ -27,6 +27,37 @@
 
 .task .task-in {
     margin: 8px;
+    position: relative;
+}
+
+.task-in .edit-icon {
+    position: absolute;
+    right: 45px;
+    color: black;
+    cursor: pointer;
+}
+
+.task-in .edit-icon:hover {
+    color: dimgrey;
+}
+
+.task-in .edit-icon:active {
+    color: gainsboro;
+}
+
+.task-in .delete-icon {
+    display: inline;
+    position: absolute;
+    right: 5px;
+    cursor: pointer;
+}
+
+.task-in .delete-icon:hover {
+    color: red;
+}
+
+.task-in .delete-icon:active {
+    color: rosybrown;
 }
 
 .title {
