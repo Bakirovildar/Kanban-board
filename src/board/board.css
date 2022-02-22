@@ -36,3 +36,15 @@
     border-radius: 15px;
     background: aliceblue;
 }
+
+.high {
+    background: rgba(255,21,5,0.50);
+}
+
+.medium {
+    background: rgba(255,196,25,0.61);
+}
+
+.low {
+    background: rgba(177,255,0,0.40);
+}

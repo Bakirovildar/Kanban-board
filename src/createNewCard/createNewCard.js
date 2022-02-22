@@ -2,14 +2,15 @@ import React, {useState} from "react";
 import {Col, Container, Row} from "react-bootstrap";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import {Button} from "@mui/material";
+import {Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup} from "@mui/material";
 import {NavLink} from "react-router-dom";
 
 const CreateNewCard = ({newTaskHandler}) => {
 
     const [state, setState] = useState({
         title: '',
-        description: ''
+        description: '',
+        priority: ''
     })
 
     const changeTitleHandler = (event) => {
@@ -18,6 +19,10 @@ const CreateNewCard = ({newTaskHandler}) => {
 
     const changeDescriptionHandler = (event) => {
         setState({...state, description: event.target.value})
+    }
+
+    const changeRadioButton = event => {
+         setState({...state, priority: event.target.value})
     }
 
     return (
@@ -40,17 +45,30 @@ const CreateNewCard = ({newTaskHandler}) => {
                             style={{marginBottom: '10px'}}
                             onChange={event => changeDescriptionHandler(event)}
                             fullWidth label="Описание" id="fullWidth"/>
+                        <FormControl onChange={event => changeRadioButton(event) }>
+                            <FormLabel id="demo-radio-buttons-group-label">Приоритет</FormLabel>
+                            <RadioGroup
+                                aria-labelledby="demo-radio-buttons-group-label"
+                                defaultValue="female"
+                                name="radio-buttons-group"
+                            >
+                                <FormControlLabel value="high" control={<Radio />} label="Высокий" />
+                                <FormControlLabel value="medium" control={<Radio />} label="Средний" />
+                                <FormControlLabel value="low" control={<Radio />} label="Низкий" />
+                            </RadioGroup>
+                        </FormControl>
+                        <br/>
                         <Button
-                            style={{marginRight: '10px'}}
+                            style={{marginRight: '10px', marginTop: '10px'}}
                             variant="contained"
                             disabled={state.title === ''}
-                            onClick={() => newTaskHandler(state.title, state.description)}>
+                            onClick={() => newTaskHandler(state.title, state.description, state.priority)}>
                             <NavLink
                                 style={{color: 'black', textDecoration: "none"}}
                                 to={'/'}>Отправить
                             </NavLink>
                         </Button>
-                        <Button
+                        <Button style={{marginTop: '10px'}}
                             variant="outlined"
                         ><NavLink
                             to={'/'}

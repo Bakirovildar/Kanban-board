@@ -75,7 +75,19 @@ const Board = ({boards: initialBoards}) => {
                             onDrop={event => dropCardHandler(event, board)}
 
                         >
-                            {board.items.map(item =>
+                            {board.items.map(item => {
+                                let cls = 'task'
+                                if (item.priority === 'high') {
+                                    cls += ' high'
+                                }
+                                if (item.priority === 'medium') {
+                                    cls += ' medium'
+                                }
+                                if (item.priority === 'low'){
+                                    cls += ' low'
+                                }
+
+                                return (
                                 <div
                                     key={item.id}
                                     onDragStart={event => dragStartHandler(event, board, item)}
@@ -86,13 +98,14 @@ const Board = ({boards: initialBoards}) => {
                                     draggable={"true"}
                                     className='item'
                                 >
-                                    <div className='task'>
+                                    <div className={cls}>
                                         <div className='task-in'>
                                             <h3>{item.title}</h3>
                                             <span>{item.description}</span>
                                         </div>
                                     </div>
                                 </div>
+                                )}
                             )}
                         </Col>))}
                 </Row>

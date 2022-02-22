@@ -11,22 +11,22 @@ function App() {
         {
             id: 1,
             title: 'todo',
-            items: [{id: uuid(), title: 'Пойти в магазин'}]
+            items: [{id: uuid(), title: 'Пойти в магазин', priority: 'high'}]
         },
         {
             id: 2,
             title: 'progress',
-            items: [{id: uuid(), title: 'Пойти '}]
+            items: [{id: uuid(), title: 'Пойти', priority: 'medium'}]
         },
         {
             id: 3,
             title: 'done',
-            items: [{id: uuid(), title: ' магазин3'}]
+            items: [{id: uuid(), title: ' магазин3', priority: 'low'}]
         },
     ]
 
-    const newTaskHandler = (title, description) => {
-        const newTask = {id: uuid(), title, description}
+    const newTaskHandler = (title, description, priority) => {
+        const newTask = {id: uuid(), title, description, priority}
         boards[0].items.push(newTask)
     }
 
