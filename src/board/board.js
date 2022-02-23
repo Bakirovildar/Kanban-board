@@ -5,6 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import './board.css'
 import CreateCard from "../create_card/create_card";
+import {TextField} from "@mui/material";
 
 const Board = ({boards: initialBoards}) => {
 
@@ -72,8 +73,33 @@ const Board = ({boards: initialBoards}) => {
         setBoards(newBoards)
     }
 
+    const [cls, setCls] = useState(false)
+
+    const editTaskHandler = (board, item) => {
+        setCls(true)
+    }
+
     return (
         <div className='board'>
+            { cls === true
+                ?
+                <div className='edit-box'>
+                    <TextField
+                        style={{margin: '25px', width: '350px'}}
+                        label="Редактировать название"
+                        variant="standard"
+                        color="warning"
+                        focused
+                    />
+                    <TextField
+                        style={{margin: '25px', width: '350px'}}
+                        label="Редактировать описание"
+                        variant="standard"
+                        color="warning"
+                        focused
+                    />
+                </div>
+                : '' }
             <Container>
                 <Row> <CreateCard/> </Row>
                 <Row>
@@ -111,9 +137,14 @@ const Board = ({boards: initialBoards}) => {
                                             >
                                                 <div className={cls}>
                                                     <div className='task-in'>
-                                                        <EditIcon className='edit-icon'/>
-                                                        <DeleteIcon className='delete-icon'
-                                                                    onClick={() => deleteTaskHandler(board, item)}/>
+                                                        <EditIcon
+                                                            className='edit-icon'
+                                                            onClick={() => editTaskHandler(boards, item)}
+                                                        />
+                                                        <DeleteIcon
+                                                            className='delete-icon'
+                                                            onClick={() => deleteTaskHandler(board, item)}
+                                                        />
                                                         <h3>{item.title}</h3>
                                                         <span>{item.description}</span>
                                                     </div>

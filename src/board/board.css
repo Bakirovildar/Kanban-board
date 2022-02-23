@@ -1,4 +1,7 @@
 .board {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .col-card {
@@ -85,3 +88,17 @@
     background: rgba(177,255,0,0.40);
 }
 
+.edit-box {
+    height: 400px;
+    width: 500px;
+    background: whitesmoke;
+    border: 1px solid grey;
+    border-radius: 10px;
+    z-index: 10;
+    position: absolute;
+    margin: auto;
+}
+
+.edit-none {
+    display: none;
+}
