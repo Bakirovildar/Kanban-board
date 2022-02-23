@@ -5,7 +5,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import './board.css'
 import CreateCard from "../create_card/create_card";
-import {TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 
 const Board = ({boards: initialBoards}) => {
 
@@ -79,6 +79,10 @@ const Board = ({boards: initialBoards}) => {
         setCls(true)
     }
 
+    const changeTitle = event => {
+        console.log(event.target.value)
+    }
+
     return (
         <div className='board'>
             { cls === true
@@ -87,6 +91,7 @@ const Board = ({boards: initialBoards}) => {
                     <TextField
                         style={{margin: '25px', width: '350px'}}
                         label="Редактировать название"
+                        onChange={event => changeTitle(event)}
                         variant="standard"
                         color="warning"
                         focused
@@ -98,6 +103,10 @@ const Board = ({boards: initialBoards}) => {
                         color="warning"
                         focused
                     />
+                    <div style={{position: 'absolute', bottom:'15px', right: '15px'}}>
+                        <Button style={{marginRight: '15px'}} variant="contained">Изменить</Button>
+                        <Button variant="outlined" onClick={() => setCls(false)}>Отмена</Button>
+                    </div>
                 </div>
                 : '' }
             <Container>
