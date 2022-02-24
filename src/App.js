@@ -1,8 +1,6 @@
 import React from "react";
 import './App.css'
 import Board from "./board/board";
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import CreateNewCard from "./createNewCard/createNewCard";
 import {uuid} from "./utils/idGenerator";
 
 function App() {
@@ -32,14 +30,9 @@ function App() {
     }
 
     return (
-            <div className='App'>
-                <Router>
-                    <Routes>
-                        <Route path='Kanban-board'  element={<Board boards={boards}/>} />
-                        <Route path='Kanban-board/add'  element={<CreateNewCard newTaskHandler={newTaskHandler}/>} />
-                    </Routes>
-                </Router>
-            </div>
+        <div className='App'>
+            <Board boards={boards} newTaskHandler={newTaskHandler}/>
+        </div>
     )
 }
 

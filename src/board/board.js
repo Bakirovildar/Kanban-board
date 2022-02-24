@@ -5,9 +5,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import './board.css'
 import CreateCard from "../create_card/create_card";
-import {Button, TextField} from "@mui/material";
+import ModalWindow from "../components/modalWindow";
 
-const Board = ({boards: initialBoards}) => {
+const Board = ({boards: initialBoards, newTaskHandler}) => {
 
     const [boards, setBoards] = useState(initialBoards)
     const [currentBoard, setCurrentBoards] = useState(null)
@@ -75,42 +75,32 @@ const Board = ({boards: initialBoards}) => {
 
     const [cls, setCls] = useState(false)
 
+    const [editBoard, setEditBoard] = useState(null)
+    const [editItem, setEditItem] = useState(null)
+
+
     const editTaskHandler = (board, item) => {
         setCls(true)
+        setEditBoard(board)
+        setEditItem(item)
     }
 
     const changeTitle = event => {
-        console.log(event.target.value)
+        const newTitle = editItem.title
     }
 
     return (
         <div className='board'>
             { cls === true
-                ?
-                <div className='edit-box'>
-                    <TextField
-                        style={{margin: '25px', width: '350px'}}
-                        label="Редактировать название"
-                        onChange={event => changeTitle(event)}
-                        variant="standard"
-                        color="warning"
-                        focused
+                ? <ModalWindow
+                        setCls={() => setCls(false)}
+                        newTaskHandler={newTaskHandler}
+                        clickCloseWindowHandlerOk={() => setCls(false)}
+                        clickCloseWindowHandler={() => setCls(false)}
                     />
-                    <TextField
-                        style={{margin: '25px', width: '350px'}}
-                        label="Редактировать описание"
-                        variant="standard"
-                        color="warning"
-                        focused
-                    />
-                    <div style={{position: 'absolute', bottom:'15px', right: '15px'}}>
-                        <Button style={{marginRight: '15px'}} variant="contained">Изменить</Button>
-                        <Button variant="outlined" onClick={() => setCls(false)}>Отмена</Button>
-                    </div>
-                </div>
                 : '' }
             <Container>
-                <Row> <CreateCard/> </Row>
+                <Row> <CreateCard clickAddTask={() => setCls(true)}/> </Row>
                 <Row>
                     {boards.map(board => {
                         return (
