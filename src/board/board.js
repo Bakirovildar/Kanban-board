@@ -6,16 +6,38 @@ import EditIcon from '@mui/icons-material/Edit';
 import './board.css'
 import CreateCard from "../create_card/create_card";
 import ModalWindow from "../components/modalWindow";
+import {uuid} from "../utils/idGenerator";
 
-const Board = ({boards: initialBoards, newTaskHandler}) => {
+const Board = ({boards: initialBoards}) => {
 
     const [boards, setBoards] = useState(initialBoards)
     const [currentBoard, setCurrentBoards] = useState(null)
     const [currentItem, setCurrentItem] = useState(null)
+    const [modalInfo, setModalInfo] = useState(true)
+    const [cls, setCls] = useState(false)
+
+    const [editBoard, setEditBoard] = useState(null)
+    const [editItem, setEditItem] = useState(null)
 
     const dragStartHandler = (e, board, item) => {
         setCurrentBoards(board)
         setCurrentItem(item)
+    }
+
+
+    const newTaskHandler = (title, description, priority) => {
+        const newTask = {id: uuid(), title, description, priority}
+        boards[0].items.push(newTask)
+    }
+
+    const editItemTaskHandler = (title, description, priority, board, item) => {
+        const newBoards = [...boards]
+        const indexBoards = boards.indexOf(board)
+        const indexItem = boards[indexBoards].items.indexOf(item)
+        const newTask = {id: uuid(), title, description, priority}
+        newBoards[indexBoards].items[indexItem] = newTask
+        setBoards(newBoards)
+        setCls(false)
     }
 
     const dragOverHandler = (event) => {
@@ -73,14 +95,9 @@ const Board = ({boards: initialBoards, newTaskHandler}) => {
         setBoards(newBoards)
     }
 
-    const [cls, setCls] = useState(false)
-
-    const [editBoard, setEditBoard] = useState(null)
-    const [editItem, setEditItem] = useState(null)
-
-
     const editTaskHandler = (board, item) => {
         setCls(true)
+        setModalInfo(false)
         setEditBoard(board)
         setEditItem(item)
     }
@@ -95,12 +112,19 @@ const Board = ({boards: initialBoards, newTaskHandler}) => {
                 ? <ModalWindow
                         setCls={() => setCls(false)}
                         newTaskHandler={newTaskHandler}
+                        editItemTaskHandler={editItemTaskHandler}
                         clickCloseWindowHandlerOk={() => setCls(false)}
                         clickCloseWindowHandler={() => setCls(false)}
+                        modalInfo={modalInfo}
+                        editBoard={editBoard}
+                        editItem={editItem}
                     />
                 : '' }
             <Container>
-                <Row> <CreateCard clickAddTask={() => setCls(true)}/> </Row>
+                <Row> <CreateCard clickAddTask={() => {
+                    setCls(true);
+                    setModalInfo('Добавить задачу')
+                }}/> </Row>
                 <Row>
                     {boards.map(board => {
                         return (
@@ -138,7 +162,7 @@ const Board = ({boards: initialBoards, newTaskHandler}) => {
                                                     <div className='task-in'>
                                                         <EditIcon
                                                             className='edit-icon'
-                                                            onClick={() => editTaskHandler(boards, item)}
+                                                            onClick={() => editTaskHandler(board, item)}
                                                         />
                                                         <DeleteIcon
                                                             className='delete-icon'

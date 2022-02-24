@@ -9,7 +9,6 @@ function App() {
         {
             id: 1,
             title: 'К выполнению',
-
             items: []
         },
         {
@@ -24,14 +23,10 @@ function App() {
         },
     ]
 
-    const newTaskHandler = (title, description, priority) => {
-        const newTask = {id: uuid(), title, description, priority}
-        boards[0].items.push(newTask)
-    }
 
     return (
         <div className='App'>
-            <Board boards={boards} newTaskHandler={newTaskHandler}/>
+            <Board boards={boards}/>
         </div>
     )
 }

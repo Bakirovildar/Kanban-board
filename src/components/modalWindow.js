@@ -4,7 +4,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import Box from "@mui/material/Box";
 import './modalWindow.css'
 
-const ModalWindow = ({newTaskHandler, clickCloseWindowHandler, clickCloseWindowHandlerOk}) => {
+const ModalWindow = ({modalInfo,newTaskHandler, editItemTaskHandler, clickCloseWindowHandler, clickCloseWindowHandlerOk, editBoard, editItem}) => {
     const [state, setState] = useState({
         title: '',
         description: '',
@@ -28,7 +28,7 @@ const ModalWindow = ({newTaskHandler, clickCloseWindowHandler, clickCloseWindowH
             <Container className='modalWindow'>
                 <Row>
                     <Col>
-                        <h1 style={{marginBottom: '50px'}}>Добавить новую задачу</h1>
+                        <h1 style={{marginBottom: '50px'}}>{modalInfo ? 'Добавить задачу' : 'Редактировать задачу'}</h1>
                         <Box
                             sx={{
                                 width: 1000,
@@ -57,14 +57,24 @@ const ModalWindow = ({newTaskHandler, clickCloseWindowHandler, clickCloseWindowH
                                 </RadioGroup>
                             </FormControl>
                             <br/>
-                            <Button
-                                style={{position: "absolute", bottom: '20px', right: '130px'}}
-                                variant="contained"
-                                disabled={state.title === ''}
-                                onClick={() => {newTaskHandler(state.title, state.description, state.priority); clickCloseWindowHandlerOk()
-                                }}
-                            >OK
-                            </Button>
+                            {modalInfo
+                                ?<Button
+                                    style={{position: "absolute", bottom: '20px', right: '130px'}}
+                                    variant="contained"
+                                    disabled={state.title === ''}
+                                    onClick={() => {newTaskHandler(state.title, state.description, state.priority); clickCloseWindowHandlerOk()
+                                    }}
+                                >OK
+                                </Button>
+                                : <Button
+                                    style={{position: "absolute", bottom: '20px', right: '130px'}}
+                                    variant="contained"
+                                    disabled={state.title === ''}
+                                    onClick={() => editItemTaskHandler(state.title, state.description, state.priority, editBoard, editItem)}
+                                >OK
+                                </Button>
+                            }
+
                             <Button
                                 style={{position: "absolute", bottom: '20px', right: '20px'}}
                                 variant="outlined"
