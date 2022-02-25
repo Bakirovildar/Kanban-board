@@ -13,8 +13,9 @@ const Board = ({boards: initialBoards}) => {
     const [boards, setBoards] = useState(initialBoards)
     const [currentBoard, setCurrentBoards] = useState(null)
     const [currentItem, setCurrentItem] = useState(null)
-    const [modalInfo, setModalInfo] = useState(true)
-    const [cls, setCls] = useState(false)
+
+    const [isNew, setIsNew] = useState(true)
+    const [showModal, setShowModal] = useState(false)
 
     const [editBoard, setEditBoard] = useState(null)
     const [editItem, setEditItem] = useState(null)
@@ -28,16 +29,15 @@ const Board = ({boards: initialBoards}) => {
     const newTaskHandler = (title, description, priority) => {
         const newTask = {id: uuid(), title, description, priority}
         boards[0].items.push(newTask)
+        setShowModal(false)
     }
 
-    const editItemTaskHandler = (title, description, priority, board, item) => {
-        const newBoards = [...boards]
+    const editTaskHandler = (title, description, priority, board, item) => {
         const indexBoards = boards.indexOf(board)
         const indexItem = boards[indexBoards].items.indexOf(item)
-        const newTask = {id: uuid(), title, description, priority}
-        newBoards[indexBoards].items[indexItem] = newTask
-        setBoards(newBoards)
-        setCls(false)
+        boards[indexBoards].items[indexItem] = {id: uuid(), title, description, priority}
+        setBoards(boards)
+        setShowModal(false)
     }
 
     const dragOverHandler = (event) => {
@@ -95,33 +95,47 @@ const Board = ({boards: initialBoards}) => {
         setBoards(newBoards)
     }
 
-    const editTaskHandler = (board, item) => {
-        setCls(true)
-        setModalInfo(false)
+    const showEditModalWindow = (board, item) => {
+        setShowModal(true)
+        setIsNew(false)
         setEditBoard(board)
         setEditItem(item)
     }
 
+    const showAddModalWindow = () => {
+        setShowModal(true)
+        setIsNew(true)
+    }
+
+
+    const clickOkHandler = (isNew, title, description, priority, editBoard, editItem) => {
+        if (isNew) {
+            newTaskHandler(title, description, priority)
+        } else {
+            editTaskHandler(title,description, priority, editBoard, editItem)
+        }
+    }
+
     return (
         <div className='board'>
-            { cls === true
+            {showModal === true
                 ? <ModalWindow
-                        setCls={() => setCls(false)}
-                        newTaskHandler={newTaskHandler}
-                        editItemTaskHandler={editItemTaskHandler}
-                        clickCloseWindowHandlerOk={() => setCls(false)}
-                        clickCloseWindowHandler={() => setCls(false)}
-                        modalInfo={modalInfo}
-                        editBoard={editBoard}
-                        editItem={editItem}
-                    />
-                : '' }
-            {cls === true ?<div style={{width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0)', position: "absolute", zIndex: 5}}> </div> : ''}
-            <Container>
-                <Row> <CreateCard clickAddTask={() => {
-                    setCls(true);
-                    setModalInfo('Добавить задачу')
-                }}/> </Row>
+                    clickOkHandler={clickOkHandler}
+                    clickCloseWindowHandler={() => setShowModal(false)}
+                    isNew={isNew}
+                    editBoard={editBoard}
+                    editItem={editItem}
+                />
+                : ''}
+            {showModal === true ? <div style={{
+                width: '100%',
+                height: '100%',
+                background: 'rgba(0, 0, 0, .5)',
+                position: "absolute",
+                zIndex: 5
+            }}/> : ''}
+            <Container className='board-container'>
+                <Row> <CreateCard clickAddTask={() => showAddModalWindow()}/> </Row>
                 <Row>
                     {boards.map(board => {
                         return (
@@ -159,7 +173,7 @@ const Board = ({boards: initialBoards}) => {
                                                     <div className='task-in'>
                                                         <EditIcon
                                                             className='edit-icon'
-                                                            onClick={() => editTaskHandler(board, item)}
+                                                            onClick={() => showEditModalWindow(board, item)}
                                                         />
                                                         <DeleteIcon
                                                             className='delete-icon'

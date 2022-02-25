@@ -1,5 +1,7 @@
 .modalWindow {
-    border: 1px solid black;
+    border: 1px solid grey;
+    padding: 40px;
+    border-radius: 15px;
     position: absolute;
     background: whitesmoke;
     width: 700px;
