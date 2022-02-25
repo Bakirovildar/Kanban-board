@@ -102,10 +102,6 @@ const Board = ({boards: initialBoards}) => {
         setEditItem(item)
     }
 
-    const changeTitle = event => {
-        const newTitle = editItem.title
-    }
-
     return (
         <div className='board'>
             { cls === true
@@ -120,6 +116,7 @@ const Board = ({boards: initialBoards}) => {
                         editItem={editItem}
                     />
                 : '' }
+            {cls === true ?<div style={{width: '100%', height: '100%', background: 'rgba(0, 0, 0, 0)', position: "absolute", zIndex: 5}}> </div> : ''}
             <Container>
                 <Row> <CreateCard clickAddTask={() => {
                     setCls(true);

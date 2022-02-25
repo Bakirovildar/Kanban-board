@@ -39,6 +39,7 @@ const ModalWindow = ({modalInfo,newTaskHandler, editItemTaskHandler, clickCloseW
                                 style={{marginBottom: '10px'}}
                                 onChange={event => changeTitleHandler(event)}
                                 fullWidth
+
                                 label="Название" id="fullWidth"/>
                             <TextField
                                 style={{marginBottom: '10px'}}
