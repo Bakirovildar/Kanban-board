@@ -112,7 +112,7 @@ const Board = ({boards: initialBoards}) => {
         if (isNew) {
             newTaskHandler(title, description, priority)
         } else {
-            editTaskHandler(title,description, priority, editBoard, editItem)
+            editTaskHandler(title, description, priority, editBoard, editItem)
         }
     }
 
@@ -135,7 +135,9 @@ const Board = ({boards: initialBoards}) => {
                 zIndex: 5
             }}/> : ''}
             <Container className='board-container'>
-                <Row> <CreateCard clickAddTask={() => showAddModalWindow()}/> </Row>
+                <Row>
+                        <CreateCard clickAddTask={() => showAddModalWindow()}/>
+                </Row>
                 <Row>
                     {boards.map(board => {
                         return (
@@ -163,6 +165,7 @@ const Board = ({boards: initialBoards}) => {
                                                 key={item.id}
                                                 onDragStart={event => dragStartHandler(event, board, item)}
                                                 onDragOver={event => dragOverHandler(event)}
+                                                onMov
                                                 onDragLeave={event => dragLeaveHandler(event)}
                                                 onDragEnd={event => dragEndHandler(event)}
                                                 onDrop={event => dropHandler(event, board, item)}

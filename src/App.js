@@ -1,9 +1,7 @@
 import React from "react";
-import './App.css'
 import Board from "./board/board";
 
 function App() {
-
     const boards = [
         {
             id: 1,
